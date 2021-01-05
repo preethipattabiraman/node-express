@@ -2,6 +2,7 @@ const express = require("express");
 const http = require("http");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const dishRouter = require("./routes/dishRouter");
 
 const host = "localhost";
 const port = 3000;
@@ -10,31 +11,32 @@ const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
+app.use('/dishes', dishRouter);
 
 //Supporting all URLs with router
 
-app.all("/dishes", (req, res, next) => {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
-    next();
-});
+// app.all("/dishes", (req, res, next) => {
+//     res.statusCode = 200;
+//     res.setHeader("Content-Type", "text/plain");
+//     next();
+// });
 
-app.get('/dishes', (req, res, next) => {
-    res.end("We will send all the dishes information");
-});
+// app.get('/dishes', (req, res, next) => {
+//     res.end("We will send all the dishes information");
+// });
 
-app.post('/dishes', (req, res, next) =>{
-    res.end("Will add the dish " + req.body.name + " , " + req.body.description);
-});
+// app.post('/dishes', (req, res, next) =>{
+//     res.end("Will add the dish " + req.body.name + " , " + req.body.description);
+// });
 
-app.put('/dishes', (req, res, next) =>{
-    res.statusCode = 403;
-    res.end("Put not supported on /dishes");
-});
+// app.put('/dishes', (req, res, next) =>{
+//     res.statusCode = 403;
+//     res.end("Put not supported on /dishes");
+// });
 
-app.delete('/dishes', (req, res, next) =>{
-    res.end("Deleting all the dishes");
-});
+// app.delete('/dishes', (req, res, next) =>{
+//     res.end("Deleting all the dishes");
+// });
 
 //API for one dish
 
